@@ -1,12 +1,13 @@
 import arcade
+from Globals import Globals
 
 
 class Path:  # класс пути
     def __init__(self, points):
         self.points = points
         self.current_point = 0
-        self.width = 50
-        self.height = 50
+        self.width = Globals.path_width
+        self.height = Globals.path_height
         self.max_points = len(self.points)
 
     def draw(self):  # функция отрисовки пути
@@ -35,17 +36,10 @@ class Path:  # класс пути
 
 class PathFactory:  # паттерн фабрика для пути (пока имеется 3 разных пути)
     def make_path1(self):
-        return Path(
-            [[-20, 200], [200, 200], [200, 600], [500, 600], [500, 200],
-             [900, 200]])
+        return Path(Globals.path_1_dots)
 
     def make_path2(self):
-        return Path(
-            [[-20, 500], [300, 500], [300, 100], [100, 100], [100, 500],
-             [1024, 500]])
+        return Path(Globals.path_2_dots)
 
     def make_path3(self):
-        return Path(
-            [[-20, 100], [150, 100], [150, 600], [400, 600], [400, 100],
-             [600, 100], [600, 600],
-             [850, 600], [850, 100], [1050, 100], [1050, 400]])
+        return Path(Globals.path_3_dots)

@@ -25,7 +25,7 @@ class MyGame(arcade.Window):  # класс окна (класс из arcade)
 
         self.monsters = MonsterFactory(self.path1)
         self.towers = TowerFactory(self.path1)
-        self.spawner1 = SpawnMonsters("pudge", self.path1,
+        self.spawner1 = SpawnMonsters(Globals.enemy_1_name, self.path1,
                                       Globals.spawner_1_start_time,
                                       Globals.spawner_1_start_time,
                                       Globals.spawner_1_quantity)

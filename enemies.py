@@ -1,4 +1,5 @@
 import arcade
+from Globals import Globals
 
 
 def sign(num):  # функция возвращения знака
@@ -118,7 +119,7 @@ class MonsterFactory:  # паттерн фабрика для монстров
         self.path = path
 
     def make_pudge(self):
-        # скорость можно поменять изменив    вот        это  |  число
-        return Monster(self.path.points[0][0], self.path.points[0][1], 50, 50,
-                       1000, 1, "image/pudge.png",
-                       "image/pudgedead.png", self.path)
+        return Monster(self.path.points[0][0], self.path.points[0][1],
+                       Globals.enemy_1_width, Globals.enemy_1_height,
+                       Globals.enemy_1_health, Globals.enemy_1_speed, Globals.enemy_1_img_alive,
+                       Globals.enemy_1_img_dead, self.path)
