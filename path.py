@@ -1,5 +1,6 @@
 import arcade
 from Globals import Globals
+from castle import Castle
 
 
 class Path:  # класс пути
@@ -9,6 +10,9 @@ class Path:  # класс пути
         self.width = Globals.path_width
         self.height = Globals.path_height
         self.max_points = len(self.points)
+        self.castle = Castle(self, Globals.castle_width,
+                             Globals.castle_height, Globals.castle_health,
+                             Globals.castle_img)
 
     def draw(self):  # функция отрисовки пути
         for i, point in enumerate(self.points):
@@ -32,14 +36,26 @@ class Path:  # класс пути
                         point[1] + self.height // 2,
                         point[1] - self.height // 2,
                         arcade.color.BRONZE)
+        self.castle.draw()
 
 
-class PathFactory:  # паттерн фабрика для пути (пока имеется 3 разных пути)
-    def make_path1(self):
+class ChoosePath:  # паттерн фабрика для пути (пока имеется 3 разных пути)
+    def choose_path(self, level):
+        if level == 1:
+            return self._make_path1()
+        elif level == 2:
+            return self._make_path2()
+        else:
+            return self._make_path3()
+
+    def _make_path1(self):
         return Path(Globals.path_1_dots)
 
-    def make_path2(self):
+    def _make_path2(self):
         return Path(Globals.path_2_dots)
 
-    def make_path3(self):
+    def _make_path3(self):
         return Path(Globals.path_3_dots)
+
+
+current_path = ChoosePath().choose_path(2)

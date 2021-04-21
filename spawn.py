@@ -1,6 +1,6 @@
 from enemies import *
 from random import randint
-
+from Globals import Globals
 
 class SpawnMonsters:  # класс для спавна монстров
     def __init__(self, name, path, start_time, end_time, quantity):
@@ -42,15 +42,15 @@ class SpawnMonsters:  # класс для спавна монстров
                     temp_quantity -= 1
             self.monster_per_frame_list.append(tmp_list)
 
-    def spawn(self, current_frame_global):  # функция, которая спавнит монстров
-        current_second = current_frame_global // 60
+    def spawn(self):  # функция, которая спавнит монстров
+        current_second = Globals.current_frame // 60
         if self.start_time <= current_second <= self.end_time:
             second = current_second - self.start_time
-            current_frame = current_frame_global % 60
+            current_frame = Globals.current_frame % 60
             for _ in range(self.monster_per_frame_list[second][current_frame]):
                 self.monsters_list.append(self.available_monsters[self.name]())
 
-        self.monsters_list = sorted(self.monsters_list,
-                                    key=lambda monster: monster.position_y,
-                                    reverse=True)
+        # self.monsters_list = sorted(self.monsters_list,
+        #                             key=lambda monster: monster.position_y,
+        #                             reverse=True)
         return self.monsters_list

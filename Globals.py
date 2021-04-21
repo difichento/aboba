@@ -7,6 +7,9 @@ class Globals(object):
     """
     # ----------Настройки окна------------
     screen_name = "aboba"
+    SCREEN_WIDTH = 1240
+    SCREEN_HEIGHT = 720
+    current_frame = 0
 
     # ------------Замок-------------------
     castle_width = 150
@@ -15,9 +18,9 @@ class Globals(object):
     castle_img = "image/castle.png"
 
     # -------------Спавны-----------------
-    spawner_1_quantity = 100
+    spawner_1_quantity = 10
     spawner_1_start_time = 1
-    spawner_1_end_time = 2
+    spawner_1_end_time = 20
 
     # --------------Башни-----------------
     tower_1_x = 500
@@ -46,3 +49,6 @@ class Globals(object):
     grass_img = arcade.load_texture("image/grass.png")
     grass_pos_x = 0
     grass_pos_y = 0
+
+
+

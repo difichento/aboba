@@ -22,6 +22,8 @@ class Monster:  # класс монстра
         self.change_x = 0
         self.change_y = 0
         self.dead = False
+        self.absolutely_dead = False
+        self.at_the_end = False
         self.width = width
         self.height = height
         self.img_alive = arcade.load_texture(img_alive)
@@ -60,6 +62,8 @@ class Monster:  # класс монстра
                     self.width, self.height, self.img_dead)
                 self.speed = 0
                 self.death_timer -= 1
+            else:
+                self.absolutely_dead = True
 
     def update(
             self):  # функция обновления статов (здоровье и хождение по пути)
@@ -85,6 +89,8 @@ class Monster:  # класс монстра
                         1] - self.move_range <= self.position_y <= \
                     self.path.points[self.curp + 1][1] + self.move_range:
                 self.curp += 1
+        else:
+            self.at_the_end = True
 
     def get_position_x(self):
         return self.position_x
@@ -113,13 +119,20 @@ class Monster:  # класс монстра
     def is_dead(self):
         return self.dead
 
+    def is_absolutely_dead(self):
+        return self.absolutely_dead
 
-class MonsterFactory:  # паттерн фабрика для монстров
+    def is_at_the_end(self):
+        return self.at_the_end
+
+
+class MonsterFactory:
     def __init__(self, path):
         self.path = path
 
     def make_pudge(self):
         return Monster(self.path.points[0][0], self.path.points[0][1],
                        Globals.enemy_1_width, Globals.enemy_1_height,
-                       Globals.enemy_1_health, Globals.enemy_1_speed, Globals.enemy_1_img_alive,
+                       Globals.enemy_1_health, Globals.enemy_1_speed,
+                       Globals.enemy_1_img_alive,
                        Globals.enemy_1_img_dead, self.path)
