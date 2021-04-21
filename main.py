@@ -6,6 +6,7 @@ from Globals import Globals
 from spawn import *
 from castle import *
 from level import current_level
+from hud import *
 
 screen_name = "aboba"
 SCREEN_WIDTH = 1240
@@ -27,6 +28,12 @@ class MyGame(arcade.Window):  # класс окна (класс из arcade)
 
     def update(self, delta_time: float):
         current_level.update()
+
+    def on_mouse_press(self, x: float, y: float, button: int, modifiers: int):
+        current_level.on_mouse_press(x, y, button, modifiers)
+
+    def on_mouse_motion(self, x: float, y: float, dx: float, dy: float):
+        current_level.on_mouse_motion(x, y, dx, dy)
 
 
 def main():

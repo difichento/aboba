@@ -2,6 +2,7 @@ from enemies import *
 from random import randint
 from Globals import Globals
 
+
 class SpawnMonsters:  # класс для спавна монстров
     def __init__(self, name, path, start_time, end_time, quantity):
         self.path = path

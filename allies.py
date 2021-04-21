@@ -16,9 +16,11 @@ class Tower:  # класс башен
         self.frame_after_delay = 0
 
     def draw(self):  # функция для отрисовки башен
-        arcade.draw_lrwh_rectangle_textured(self.position_x, self.position_y,
-                                            self.t_width, self.t_height,
-                                            self.t_img)
+        arcade.draw_lrwh_rectangle_textured(
+            self.position_x - self.t_width // 2,
+            self.position_y - self.t_height // 2,
+            self.t_width, self.t_height,
+            self.t_img)
 
     def attack(self, enemy_list):
         if Globals.current_frame >= self.frame_after_delay:
@@ -32,8 +34,13 @@ class Tower:  # класс башен
         return enemy_list
 
 
-class TowerFactory:  # паттерн фабрика для башен
-
-    def make_tower(self, position_x, position_y):
-        return Tower(position_x, position_y, 150, 150, 100, 200, 1,
+class TowerFactory:
+    def make_default_tower(self, position_x, position_y):
+        return Tower(position_x, position_y, 60, 60, 100, 200, 1,
                      "image/tower.png")
+
+
+working_tower_list = []
+
+tower_list = []
+tower_list.append(TowerFactory().make_default_tower)
