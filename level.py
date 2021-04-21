@@ -30,8 +30,6 @@ class Level:
         self.path.draw()
         for en in self.enemies:
             en.draw()
-        for tower in self.towers:
-            tower.draw()
         hud.draw()
 
     def update(self):
@@ -59,9 +57,11 @@ class Level:
         for cell in cells:
             cell.draw_cell()
             cell.draw_borders()
-    def draw_background(self):
-        arcade.draw_lrwh_rectangle_textured(0, 0, Globals.SCREEN_WIDTH, Globals.SCREEN_HEIGHT, Globals.grass_img)
 
+    def draw_background(self):
+        arcade.draw_lrwh_rectangle_textured(0, 0, Globals.SCREEN_WIDTH,
+                                            Globals.SCREEN_HEIGHT,
+                                            Globals.grass_img)
 
 
 current_level = Level()

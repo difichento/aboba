@@ -1,5 +1,4 @@
 import arcade
-import Globals
 
 
 def singleton(class_):  # паттерн одиночка для замка (замок у нас только один)
@@ -15,11 +14,11 @@ def singleton(class_):  # паттерн одиночка для замка (з�
 
 @singleton
 class Castle:  # класс замка
-    def __init__(self, path, width, height, health, img_alive):
+    def __init__(self, width, height, health, img_alive):
         self.health = health
         self.max_health = health
-        self.position_x = path.points[-1][0]
-        self.position_y = path.points[-1][1]
+        self.position_x = 0
+        self.position_y = 0
         self.dead = False
         self.width = width
         self.height = height

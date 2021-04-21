@@ -8,16 +8,14 @@ from castle import *
 from level import current_level
 from hud import *
 
-screen_name = "aboba"
-SCREEN_WIDTH = 1240
-SCREEN_HEIGHT = 720
+
 
 
 class MyGame(arcade.Window):  # класс окна (класс из arcade)
 
     def __init__(self):
-        super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT,
-                         screen_name)
+        super().__init__(Globals.SCREEN_WIDTH, Globals.SCREEN_HEIGHT,
+                         Globals.screen_name)
 
     def setup(self):
         current_level.setup()
