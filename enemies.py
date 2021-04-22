@@ -32,8 +32,8 @@ class Monster:  # класс монстра
         self.img_dead = arcade.load_texture(img_dead)
         self.img = self.img_alive
         self.move_range = 5
-        self.death_timer = 60
-        self.coin_timer = 60
+        self.death_timer = 40
+        self.coin_timer = 30
         self.current_point = 0
         self.coast = coast
 
@@ -66,9 +66,15 @@ class Monster:  # класс монстра
                 self.speed = 0
                 self.death_timer -= 1
             else:
-                
-                self.absolutely_dead = True
-
+                if self.coin_timer != 0:
+                    arcade.draw_lrwh_rectangle_textured(
+                        self.position_x - self.width // 2,
+                        self.position_y - self.height // 2,
+                        50, 50, arcade.load_texture("image/coin.png"))
+                    self.coin_timer -= 1
+                else:
+                    Globals.coins+=self.coast
+                    self.absolutely_dead = True
 
     def update(self):  # функция обновления статов
         if self.health <= 0:
@@ -93,50 +99,38 @@ class Monster:  # класс монстра
         else:
             self.at_the_end = True
 
-
     def get_position_x(self):
         return self.position_x
-
 
     def get_position_y(self):
         return self.position_y
 
-
     def change_position_x(self, change_x):
         self.position_x += change_x
-
 
     def change_position_y(self, change_y):
         self.position_y += change_y
 
-
     def get_speed(self):
         return self.speed
-
 
     def get_health(self):
         return self.health
 
-
     def take_damage(self, damage):
         self.health -= damage
-
 
     def take_heal(self, heal):
         self.health += heal
 
-
     def is_dead(self):
         return self.dead
-
 
     def is_absolutely_dead(self):
         return self.absolutely_dead
 
-
     def is_at_the_end(self):
         return self.at_the_end
-
 
     def is_at_point(self):
         return cells[current_path.cells_to_num(
@@ -157,6 +151,6 @@ class MonsterFactory:
     def make_pudge(self):
         return Monster(
             Globals.enemy_1_width, Globals.enemy_1_height,
-            Globals.enemy_1_health, Globals.enemy_1_speed, 10,
+            Globals.enemy_1_health, Globals.enemy_1_speed, 15,
             Globals.enemy_1_img_alive,
             Globals.enemy_1_img_dead)

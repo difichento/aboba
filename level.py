@@ -31,6 +31,8 @@ class Level:
         for en in self.enemies:
             en.draw()
         hud.draw()
+        arcade.draw_text("Padgers: " + str(Globals.coins), 5, 700,
+                         arcade.color.BLACK, 30, font_name="GOTHIC")
 
     def update(self):
         Globals.current_frame += 1
