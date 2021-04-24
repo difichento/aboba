@@ -22,7 +22,7 @@ class MyGame(arcade.Window):  # класс окна (класс из arcade)
 
         self.monsters = MonsterFactory(self.path1)
         self.towers = TowerFactory(self.path1)
-        self.spawner1 = SpawnMonsters("pudge", self.path1, 1, 2, 100)
+        self.spawner1 = SpawnMonsters("pudge", self.path1, 1, 30, 100)
         self.current_frame = 0
 
     def setup(self):
