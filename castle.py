@@ -13,7 +13,7 @@ def singleton(class_):  # паттерн одиночка для замка (з�
 
 
 @singleton
-class Castle:  # класс замка
+class Castle:
     def __init__(self, width, height, health, img_alive):
         self.health = health
         self.max_health = health

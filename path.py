@@ -1,10 +1,11 @@
 import arcade
-from Globals import Globals
-from cell import cells
+
 from castle import Castle
+from cell import cells
+from Globals import Globals
 
 
-class Path:  # класс пути
+class Path:
     def __init__(self, cells_list):
         self.cell_list = cells_list
         self.current_point = 0
@@ -26,7 +27,7 @@ class Path:  # класс пути
         return self.cell_list[num][0] + self.cell_list[num][1] * 25
 
 
-class ChoosePath:  # паттерн фабрика для пути (пока имеется 3 разных пути)
+class ChoosePath:
     def choose_path(self, level):
         if level == 1:
             return self._make_path1()
@@ -40,9 +41,6 @@ class ChoosePath:  # паттерн фабрика для пути (пока и�
 
     def _make_path2(self):
         return Path(Globals.path_2_dots)
-
-    def _make_path3(self):
-        return Path(Globals.path_3_dots)
 
 
 current_path = ChoosePath().choose_path(2)

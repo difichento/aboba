@@ -1,6 +1,8 @@
 import arcade
-from allies import *
+
+from allies import working_tower_list, TowerFactory, tower_list
 from cell import cells
+from Globals import Globals
 
 
 class TowerButton:
@@ -10,8 +12,8 @@ class TowerButton:
         self.num = num
         self.tower.center_x = 25 + self.num * 50
         self.tower.center_y = 25
-        self.tower.t_width = 50
-        self.tower.t_height = 50
+        self.tower.width = 50
+        self.tower.height = 50
         self.left = self.tower.center_x - 25
         self.right = self.tower.center_x + 25
         self.top = self.tower.center_y + 25
@@ -40,7 +42,7 @@ class TowerButton:
                                                color)
             arcade.draw_circle_outline(self.current_cell.center_x,
                                        self.current_cell.center_y,
-                                       self.tower.t_attack_range,
+                                       self.tower.attack_range,
                                        color)
 
     def on_mouse_press(self, x, y, button, modifiers):
@@ -50,7 +52,8 @@ class TowerButton:
                     self.was_pressed = True
         else:
             if button == arcade.MOUSE_BUTTON_LEFT:
-                if cells[self.cell_num].object == "background" and Globals.coins >= 10:
+                if cells[self.cell_num].object == "background" and \
+                        Globals.coins >= 10:
                     working_tower_list.append(
                         TowerFactory().make_default_tower(self.current_cell))
                     cells[self.cell_num].set_object("tower")

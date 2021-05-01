@@ -1,5 +1,4 @@
 import arcade
-import random
 
 
 class Globals(object):
@@ -38,6 +37,7 @@ class Globals(object):
     enemy_1_height = 70
     enemy_1_health = 1000
     enemy_1_speed = 1
+    enemy_1_coast = 15
     # ---------------Путь-----------------
     path_width = 50
     path_height = 50
@@ -59,6 +59,7 @@ class Globals(object):
     # -----------Задний фон---------------
     grass_img = arcade.load_texture("image/grass.png")
     cell_bg = arcade.load_texture("image/cell_bg.jpg")
+    menu_bg = arcade.load_texture("image/menu.png")
     grass_pos_x = 0
     grass_pos_y = 0
 

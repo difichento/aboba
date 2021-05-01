@@ -1,6 +1,6 @@
-from enemies import *
-from random import randint
+from enemies import MonsterFactory
 from Globals import Globals
+from random import randint
 
 
 class SpawnMonsters:  # класс для спавна монстров

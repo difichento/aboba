@@ -1,4 +1,5 @@
 import arcade
+
 from Globals import Globals
 from cell import cells
 from path import current_path
@@ -73,7 +74,7 @@ class Monster:  # класс монстра
                         50, 50, arcade.load_texture("image/coin.png"))
                     self.coin_timer -= 1
                 else:
-                    Globals.coins+=self.coast
+                    Globals.coins += self.coast
                     self.absolutely_dead = True
 
     def update(self):  # функция обновления статов
@@ -151,6 +152,7 @@ class MonsterFactory:
     def make_pudge(self):
         return Monster(
             Globals.enemy_1_width, Globals.enemy_1_height,
-            Globals.enemy_1_health, Globals.enemy_1_speed, 15,
+            Globals.enemy_1_health, Globals.enemy_1_speed,
+            Globals.enemy_1_coast,
             Globals.enemy_1_img_alive,
             Globals.enemy_1_img_dead)

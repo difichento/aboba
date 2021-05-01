@@ -1,12 +1,11 @@
-from abc import abstractmethod
 import arcade
-from allies import *
-from Globals import Globals
-from spawn import *
-from castle import *
-from path import *
-from hud import hud
+
+from allies import working_tower_list
 from cell import cells
+from Globals import Globals
+from hud import hud
+from path import current_path
+from spawn import SpawnMonsters
 
 
 class Level:
