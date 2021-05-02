@@ -2,7 +2,6 @@ import arcade
 
 from Globals import Globals
 from cell import cells
-from path import current_path
 
 
 def sign(num):  # функция возвращения знака
@@ -15,15 +14,17 @@ def sign(num):  # функция возвращения знака
 
 
 class Monster:  # класс монстра
-    def __init__(self, width, height, health, speed, coast,
+    def __init__(self, current_path, width, height, health, speed, coast,
                  img_alive, img_dead):
         self.max_health = health
         self.health = health
         self.speed = speed
+        self.current_path = current_path
         self.position_x = cells[current_path.cells_to_num(0)].center_x
         self.position_y = cells[current_path.cells_to_num(0)].center_y
         self.change_x = 0
         self.change_y = 0
+        self.percent = 0
         self.dead = False
         self.absolutely_dead = False
         self.at_the_end = False
@@ -82,18 +83,34 @@ class Monster:  # класс монстра
             self.health = 0
             self.img = self.img_dead
             self.dead = True
-        if self.current_point != len(current_path.cell_list) - 1:
-            self.direction_x = cells[current_path.cells_to_num(
-                self.current_point + 1)].center_x - cells[
-                                   current_path.cells_to_num(
-                                       self.current_point)].center_x
-            self.direction_y = cells[current_path.cells_to_num(
-                self.current_point + 1)].center_y - cells[
-                                   current_path.cells_to_num(
-                                       self.current_point)].center_y
+        if self.current_point != len(self.current_path.cell_list) - 1:
+            self.direction_x = cells[self.current_path.cells_to_num(
+                self.current_point + 1)].center_x - cells[self.current_path.cells_to_num(self.current_point)].center_x
+            self.direction_y = cells[self.current_path.cells_to_num(
+                self.current_point + 1)].center_y - cells[self.current_path.cells_to_num(self.current_point)].center_y
 
             self.position_x += sign(self.direction_x) * self.speed
             self.position_y += sign(self.direction_y) * self.speed
+            percent_x = 0
+            percent_y = 0
+
+            try:
+                percent_x = 1 - (cells[self.current_path.cells_to_num(
+                    self.current_point + 1)].center_x - self.position_x) / (cells[self.current_path.cells_to_num(
+                    self.current_point + 1)].center_x - cells[self.current_path.cells_to_num(
+                    self.current_point)].center_x)
+            except ZeroDivisionError:
+                pass
+            try:
+                percent_x = 1 - (cells[self.current_path.cells_to_num(
+                    self.current_point + 1)].center_y - self.position_y) / (cells[self.current_path.cells_to_num(
+                    self.current_point + 1)].center_y - cells[self.current_path.cells_to_num(
+                    self.current_point)].center_y)
+            except ZeroDivisionError:
+                pass
+
+            percent_y = 1
+            self.percent = self.current_point + percent_x + percent_y
 
             if self.is_at_point():
                 self.current_point += 1
@@ -134,14 +151,14 @@ class Monster:  # класс монстра
         return self.at_the_end
 
     def is_at_point(self):
-        return cells[current_path.cells_to_num(
+        return cells[self.current_path.cells_to_num(
             self.current_point + 1)].center_x - \
                self.move_range <= self.position_x <= \
-               cells[current_path.cells_to_num(
+               cells[self.current_path.cells_to_num(
                    self.current_point + 1)].center_x + self.move_range and \
-               cells[current_path.cells_to_num(
+               cells[self.current_path.cells_to_num(
                    self.current_point + 1)].center_y - self.move_range <= self.position_y <= \
-               cells[current_path.cells_to_num(
+               cells[self.current_path.cells_to_num(
                    self.current_point + 1)].center_y + self.move_range
 
 
@@ -150,9 +167,9 @@ class MonsterFactory:
         self.path = path
 
     def make_pudge(self):
-        return Monster(
-            Globals.enemy_1_width, Globals.enemy_1_height,
-            Globals.enemy_1_health, Globals.enemy_1_speed,
-            Globals.enemy_1_coast,
-            Globals.enemy_1_img_alive,
-            Globals.enemy_1_img_dead)
+        return Monster(self.path,
+                       Globals.enemy_1_width, Globals.enemy_1_height,
+                       Globals.enemy_1_health, Globals.enemy_1_speed,
+                       Globals.enemy_1_coast,
+                       Globals.enemy_1_img_alive,
+                       Globals.enemy_1_img_dead)

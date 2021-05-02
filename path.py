@@ -43,4 +43,3 @@ class ChoosePath:
         return Path(Globals.path_2_dots)
 
 
-current_path = ChoosePath().choose_path(2)

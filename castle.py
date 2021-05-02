@@ -1,4 +1,5 @@
 import arcade
+from Globals import Globals
 
 
 def singleton(class_):  # паттерн одиночка для замка (замок у нас только один)
@@ -50,3 +51,11 @@ class Castle:
         self.health -= damage
         if self.health <= 0:
             self.dead = True
+            Globals.current_window = "end"
+
+    def is_dead(self):
+        return self.dead
+
+    def set_full_hp(self):
+        self.health = self.max_health
+        self.dead = False

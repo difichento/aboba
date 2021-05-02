@@ -79,13 +79,23 @@ class TowerButton:
 
 
 class Hud:
-    def __init__(self):
+    def __init__(self, level):
         self.button_list = []
+        self.level = level
         for num, tower_func in enumerate(tower_list):
             self.button_list.append(TowerButton(tower_func, num, 0))
 
     def draw(self):
         self.draw_tower_buttons()
+        arcade.draw_text("Padgers: " + str(Globals.coins), 110, 700,
+                         arcade.color.BLACK, 30, font_name="GOTHIC", align="center", anchor_y="center",
+                         anchor_x="center")
+        arcade.draw_text("Wave: " + str(self.level.inf_spawner.wave), 625, 700,
+                         arcade.color.BLACK, 30, font_name="GOTHIC", align="center", anchor_y="center",
+                         anchor_x="center")
+        arcade.draw_text("Next wave in:\n" + str(30 - Globals.current_frame // 60 % 30), 925, 700,
+                         arcade.color.BLACK, 30, font_name="GOTHIC", align="center", anchor_y="center",
+                         anchor_x="center")
 
     def draw_tower_buttons(self):  # отрисовка кнопки
         for tower_button in self.button_list:
@@ -98,6 +108,3 @@ class Hud:
     def on_mouse_motion(self, x, y, dx, dy):
         for tower_button in self.button_list:
             tower_button.on_mouse_motion(x, y, dx, dy)
-
-
-hud = Hud()

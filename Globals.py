@@ -18,9 +18,8 @@ class Globals(object):
     castle_img = "image/castle.png"
 
     # -------------Спавны-----------------
-    spawner_1_quantity = 10
-    spawner_1_start_time = 1
-    spawner_1_end_time = 20
+    spawner_1_quantity = 5
+    spawner_1_time = 20
 
     # --------------Башни-----------------
     tower_1_x = 500
@@ -65,3 +64,6 @@ class Globals(object):
 
     default_coins = 20
     coins = default_coins
+
+    current_window = "menu"
+    current_level = None

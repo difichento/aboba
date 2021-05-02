@@ -16,9 +16,9 @@ class Cell:
         self.center_x = self.left + 25
         self.center_y = self.bottom + 25
 
-    def draw_borders(self):
+    def draw_borders(self, color=arcade.color.BLACK):
         arcade.draw_lrtb_rectangle_outline(self.left, self.right, self.top,
-                                           self.bottom, arcade.color.BLACK)
+                                           self.bottom, color)
 
     def draw_cell(self):
         if self.object == "background":
