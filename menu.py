@@ -10,6 +10,7 @@ class Menu:
     """
     Класс для окна меню, позволяет перейти в редактор или начать игру со стандартным уровнем
     """
+
     def __init__(self):
         self.start_button = Button(625, 500, 200, 75, arcade.color.BLACK, arcade.color.BLUE, self.start_game, "START")
         self.editor_button = Button(625, 375, 200, 75, arcade.color.BLACK, arcade.color.BLUE, self.start_editor,
@@ -17,6 +18,7 @@ class Menu:
 
     def on_draw(self):
         self.draw_background()
+        arcade.draw_lrwh_rectangle_textured(110, -30, 900, 900, arcade.load_texture(Globals.enemy_1_img_alive))
         self.start_button.draw()
         self.editor_button.draw()
 

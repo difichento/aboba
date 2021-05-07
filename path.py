@@ -8,7 +8,7 @@ from Globals import Globals
 class Path:
     """
     Класс пути по которому будут ходить монстры
-    по факту список клеток с object == path с несколькими функциями и созданием замка в конце пути
+    список клеток с object == path с несколькими функциями и созданием замка в конце пути
     """
     def __init__(self, cells_list):
         self.cell_list = cells_list
