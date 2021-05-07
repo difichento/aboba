@@ -14,7 +14,21 @@ def sign(num):  # функция возвращения знака
 
 
 class Monster:  # класс монстра
-    def __init__(self, current_path, width, height, health, speed, coast,
+    """
+    Класс монстра, имеет параметры:
+    current_path - путь по которому будет ходить
+    health, speed, cost - статы
+    width, height, img_alive, img_dead - для отрисовки модельки
+
+    В функции draw рисуется моделька и полоска hp, моделька меняется на мертвую или монету,
+    в зависимости от состояния монстра
+
+    В функции update обновляется здоровье, статус (dead, absolutely_dead), координы, процент пройденного пути
+    (процент показывает не совсем сколько прошел монстр, но позволяет отсортировать монстров в
+    зависимости от пройденного пути
+    """
+
+    def __init__(self, current_path, width, height, health, speed, cost,
                  img_alive, img_dead):
         self.max_health = health
         self.health = health
@@ -37,7 +51,7 @@ class Monster:  # класс монстра
         self.death_timer = 40
         self.coin_timer = 30
         self.current_point = 0
-        self.coast = coast
+        self.coast = cost
 
     def draw(self):  # функция отрисовки монстра
 
@@ -163,6 +177,9 @@ class Monster:  # класс монстра
 
 
 class MonsterFactory:
+    """
+    Класс в котором задаются стандартные монстры
+    """
     def __init__(self, path):
         self.path = path
 

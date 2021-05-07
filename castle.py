@@ -15,17 +15,23 @@ def singleton(class_):  # паттерн одиночка для замка (з�
 
 @singleton
 class Castle:
+    """
+    Класс замка
+    Замок может быть только один, поэтому используем синглтон
+    Создается в path
+    """
+
     def __init__(self, width, height, health, img_alive):
         self.health = health
         self.max_health = health
+        self.dead = False
+
         self.position_x = 0
         self.position_y = 0
-        self.dead = False
         self.width = width
         self.height = height
         self.img_alive = arcade.load_texture(img_alive)
         # self.img_dead = arcade.load_texture(img_dead)
-        self.death_timer = 60
 
     def draw(self):  # функция для отрисовки замка
         arcade.draw_lrwh_rectangle_textured(self.position_x - self.width // 2,

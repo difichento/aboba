@@ -2,7 +2,9 @@ import arcade
 
 
 class Button:
-
+    """
+    Класс для кнопок в меню и редакторе карт
+    """
     def __init__(self, x, y, width, height, inactive_color, active_color,
                  action, text=""):
         self.x = x

@@ -3,11 +3,15 @@ from Globals import Globals
 from button import Button
 from level import Level
 from path import Path
-from hud import Hud
 from cell import cells
 
 
 class Editor:
+    """
+    Класс для окна редактора уровней
+    позволяет создать любой путь
+    меняет current_path и при нажатии на кнопку start создает Level() с этим путем
+    """
     def __init__(self):
         self.points = []
         self.available_points = []

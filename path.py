@@ -6,6 +6,10 @@ from Globals import Globals
 
 
 class Path:
+    """
+    Класс пути по которому будут ходить монстры
+    по факту список клеток с object == path с несколькими функциями и созданием замка в конце пути
+    """
     def __init__(self, cells_list):
         self.cell_list = cells_list
         self.current_point = 0
@@ -28,18 +32,17 @@ class Path:
 
 
 class ChoosePath:
+    """
+    Класс для создания предустановленных уровней
+    """
     def choose_path(self, level):
         if level == 1:
-            return self._make_path1()
-        elif level == 2:
-            return self._make_path2()
+            return self.make_path1()
         else:
-            return self._make_path3()
+            return self.make_path2()
 
-    def _make_path1(self):
+    def make_path1(self):
         return Path(Globals.path_1_dots)
 
-    def _make_path2(self):
+    def make_path2(self):
         return Path(Globals.path_2_dots)
-
-

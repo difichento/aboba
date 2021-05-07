@@ -7,6 +7,9 @@ from path import ChoosePath
 
 
 class Menu:
+    """
+    Класс для окна меню, позволяет перейти в редактор или начать игру со стандартным уровнем
+    """
     def __init__(self):
         self.start_button = Button(625, 500, 200, 75, arcade.color.BLACK, arcade.color.BLUE, self.start_game, "START")
         self.editor_button = Button(625, 375, 200, 75, arcade.color.BLACK, arcade.color.BLUE, self.start_editor,

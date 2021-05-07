@@ -4,6 +4,11 @@ from Globals import Globals
 
 
 class Cell:
+    """
+    Класс клетки
+    может быть фоном, кнопкой для установки башен, частью пути и башней
+    изначально создается список клеток с object = background
+    """
     def __init__(self, num):
         self.object = "background"
         self.num = num

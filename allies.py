@@ -1,7 +1,12 @@
 from Globals import Globals
 
 
-class Tower:  # класс башен
+class Tower:
+    """
+    Класс башен
+    Функция attack находит монстра прошедшего дальше всех и наносит ему урон
+    Функции отрисовки нет, т.к. они отрисовываются в cells
+    """
     def __init__(self, cell, width, height, damage,
                  attack_range, attack_delay, img):
         self.cell = cell
@@ -29,11 +34,12 @@ class Tower:  # класс башен
 
 class TowerFactory:
     def make_default_tower(self, cell):
-        return Tower(cell, 60, 60, 100, 200, 1,
-                     Globals.tower_1_img)
+        return Tower(cell, 60, 60, 100, 200, 1, Globals.tower_1_img)
 
 
+# глобальный список башен установленных на карте
 working_tower_list = []
 
+# Список всех видов башен. Нужен для создания кнопок.
 tower_list = []
 tower_list.append(TowerFactory().make_default_tower)

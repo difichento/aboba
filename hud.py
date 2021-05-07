@@ -6,25 +6,33 @@ from Globals import Globals
 
 
 class TowerButton:
-    def __init__(self, tower_func, num, button_cell_num):
+    """
+    Добавляет кнопку для установки башни в клетку num (у нас кнопки на нижнем ряду, так что более точное вычисление
+    center_x и center_y деать не стали)
+    """
+    def __init__(self, tower_func, num):
         self.tower_func = tower_func
         self.tower = self.tower_func(cells[0])
         self.num = num
+
         self.tower.center_x = 25 + self.num * 50
         self.tower.center_y = 25
         self.tower.width = 50
         self.tower.height = 50
+
         self.left = self.tower.center_x - 25
         self.right = self.tower.center_x + 25
         self.top = self.tower.center_y + 25
         self.bottom = self.tower.center_y - 25
+
         self.was_pressed = False
+
         self.x = 0
         self.y = 0
         self.cell_num = 0
+        self.button_cell = cells[num]
         self.current_cell = cells[0]
-        self.button_cell = cells[button_cell_num]
-        cells[button_cell_num].set_object("button")
+        cells[num].set_object("button")
 
     def draw(self):
         arcade.draw_lrtb_rectangle_outline(self.left, self.right,
@@ -79,11 +87,16 @@ class TowerButton:
 
 
 class Hud:
+    """
+    Класс для отрисовки HUDа
+    Включает в себя счетчик волн, денег, времени до следующей волны,
+    добавляет кнопку для установки башни (основная функция)
+    """
     def __init__(self, level):
         self.button_list = []
         self.level = level
         for num, tower_func in enumerate(tower_list):
-            self.button_list.append(TowerButton(tower_func, num, 0))
+            self.button_list.append(TowerButton(tower_func, num))
 
     def draw(self):
         self.draw_tower_buttons()

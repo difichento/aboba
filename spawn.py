@@ -3,7 +3,12 @@ from Globals import Globals
 from random import randint
 
 
-class Spawner:  # класс для спавна монстров
+class Spawner:
+    """
+    Класс для создания монстров
+    получает текущий список монстров и дополняет его новыми, одновременно сортирую по пройденному пути
+    спавнит quantity монстров за time секунд. Монстры распределяются как коэф^i/коэф^time, где i - номер текущей секунды
+    """
     def __init__(self, name, path, time, quantity, current_monster_list):
         self.path = path
         self.time = time
@@ -54,6 +59,10 @@ class Spawner:  # класс для спавна монстров
 
 
 class InfiniteSpawner:
+    """
+    Класс для создания бесконечных волн врагов
+    создается один экземпляр и при каждом вызове new_wave увеличивает количество монстров
+    """
     def __init__(self, path):
         self.wave = 0
         self.path = path
