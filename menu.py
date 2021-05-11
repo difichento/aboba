@@ -1,8 +1,8 @@
 import arcade
 from Globals import Globals
 
-from level import Level
 from button import Button
+from level import Level
 from path import ChoosePath
 
 
