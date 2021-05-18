@@ -9,4 +9,3 @@ castle3 = Castle(500, 500, 400, Globals.castle_img)
 print(castle3.health)
 print(castle3)
 
-
