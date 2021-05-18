@@ -1,7 +1,8 @@
 import arcade
-from menu import Menu, GameEnd
+
 from editor import Editor
 from Globals import Globals
+from menu import Menu, GameEnd
 
 menu = Menu()
 editor = Editor()
