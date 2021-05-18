@@ -48,4 +48,5 @@ class Cell:
         self.object = obj
 
 
-cells = [Cell(i) for i in range(25 * 15)]
+class Cells:
+    cells = [Cell(i) for i in range(25 * 15)]

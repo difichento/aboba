@@ -7,6 +7,7 @@ class Tower:
     Функция attack находит монстра прошедшего дальше всех и наносит ему урон
     Функции отрисовки нет, т.к. они отрисовываются в cells
     """
+
     def __init__(self, cell, width, height, damage,
                  attack_range, attack_delay, img):
         self.cell = cell
@@ -33,13 +34,15 @@ class Tower:
 
 
 class TowerFactory:
+    def __init__(self):
+        # Список всех видов башен. Нужен для создания кнопок.
+        self.tower_list = []
+        self.tower_list.append(self.make_default_tower)
+
     def make_default_tower(self, cell):
         return Tower(cell, 60, 60, 100, 200, 1, Globals.tower_1_img)
 
 
-# глобальный список башен установленных на карте
-working_tower_list = []
-
-# Список всех видов башен. Нужен для создания кнопок.
-tower_list = []
-tower_list.append(TowerFactory().make_default_tower)
+class WorkingTowers:
+    # глобальный список башен установленных на карте
+    working_tower_list = []

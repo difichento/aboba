@@ -1,7 +1,7 @@
 import arcade
 
-from allies import working_tower_list
-from cell import cells
+from allies import WorkingTowers
+from cell import Cells
 from Globals import Globals
 from hud import Hud
 from spawn import InfiniteSpawner
@@ -43,7 +43,7 @@ class Level:
     def update(self):
         if not self.path.castle.is_dead():
             Globals.current_frame += 1
-            self.towers = working_tower_list
+            self.towers = WorkingTowers.working_tower_list
             for tower in self.towers:
                 self.enemies = tower.attack(self.enemies)
 
@@ -69,7 +69,7 @@ class Level:
         self.hud.on_mouse_motion(x, y, dx, dy)
 
     def draw_cells(self):
-        for cell in cells:
+        for cell in Cells.cells:
             cell.draw_cell()
             cell.draw_borders()
 

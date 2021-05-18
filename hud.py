@@ -1,7 +1,7 @@
 import arcade
 
-from allies import working_tower_list, TowerFactory, tower_list
-from cell import cells
+from allies import WorkingTowers, TowerFactory
+from cell import Cells
 from Globals import Globals
 
 
@@ -12,7 +12,7 @@ class TowerButton:
     """
     def __init__(self, tower_func, num):
         self.tower_func = tower_func
-        self.tower = self.tower_func(cells[0])
+        self.tower = self.tower_func(Cells.cells[0])
         self.num = num
 
         self.tower.center_x = 25 + self.num * 50
@@ -30,9 +30,9 @@ class TowerButton:
         self.x = 0
         self.y = 0
         self.cell_num = 0
-        self.button_cell = cells[num]
-        self.current_cell = cells[0]
-        cells[num].set_object("button")
+        self.button_cell = Cells.cells[num]
+        self.current_cell = Cells.cells[0]
+        Cells.cells[num].set_object("button")
 
     def draw(self):
         arcade.draw_lrtb_rectangle_outline(self.left, self.right,
@@ -60,11 +60,11 @@ class TowerButton:
                     self.was_pressed = True
         else:
             if button == arcade.MOUSE_BUTTON_LEFT:
-                if cells[self.cell_num].object == "background" and \
+                if Cells.cells[self.cell_num].object == "background" and \
                         Globals.coins >= 10:
-                    working_tower_list.append(
+                    WorkingTowers.working_tower_list.append(
                         TowerFactory().make_default_tower(self.current_cell))
-                    cells[self.cell_num].set_object("tower")
+                    Cells.cells[self.cell_num].set_object("tower")
                     Globals.coins -= 10
             if button == arcade.MOUSE_BUTTON_RIGHT:
                 if self.was_pressed:
@@ -75,9 +75,9 @@ class TowerButton:
         self.y = y
         try:
             self.cell_num = self.find_cell_num(self.x, self.y)
-            self.current_cell = cells[self.cell_num]
+            self.current_cell = Cells.cells[self.cell_num]
         except IndexError:
-            self.current_cell = cells[0]
+            self.current_cell = Cells.cells[0]
 
     def find_cell(self, x, y):
         return [x // 50, y // 50]
@@ -95,7 +95,7 @@ class Hud:
     def __init__(self, level):
         self.button_list = []
         self.level = level
-        for num, tower_func in enumerate(tower_list):
+        for num, tower_func in enumerate(TowerFactory().tower_list):
             self.button_list.append(TowerButton(tower_func, num))
 
     def draw(self):
