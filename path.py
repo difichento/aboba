@@ -1,51 +1,46 @@
-import arcade
+from castle import Castle
+from cell import Cells
+from Globals import Globals
 
 
-class Path:  # класс пути
-    def __init__(self, points):
-        self.points = points
+class Path:
+    """
+    Класс пути по которому будут ходить монстры
+    список клеток с object == path с несколькими функциями и созданием замка в конце пути
+    """
+    def __init__(self, cells_list):
+        self.cell_list = cells_list
         self.current_point = 0
-        self.width = 50
-        self.height = 50
-        self.max_points = len(self.points)
+        for cell_num in range(len(cells_list)):
+            Cells.cells[self.cells_to_num(cell_num)].set_object("path")
+        self.init_castle()
+
+    def init_castle(self):
+        self.castle = Castle(Globals.castle_width,
+                             Globals.castle_height, Globals.castle_health,
+                             Globals.castle_img)
+        self.castle.position_x = Cells.cells[self.cells_to_num(-1)].center_x
+        self.castle.position_y = Cells.cells[self.cells_to_num(-1)].center_y
 
     def draw(self):  # функция отрисовки пути
-        for i, point in enumerate(self.points):
-            arcade.draw_lrtb_rectangle_filled(point[0] - self.width // 2,
-                                              point[0] + self.width // 2,
-                                              point[1] + self.height // 2,
-                                              point[1] - self.height // 2,
-                                              arcade.color.BRONZE)
-        for i, point in enumerate(self.points):
-            if point != self.points[-1]:
-                if point[0] == self.points[i + 1][0]:
-                    arcade.draw_lrtb_rectangle_filled(
-                        point[0] - self.width // 2, point[0] + self.width // 2,
-                        max(point[1], self.points[i + 1][1]),
-                        min(point[1], self.points[i + 1][1]),
-                        arcade.color.BRONZE)
-                elif point[1] == self.points[i + 1][1]:
-                    arcade.draw_lrtb_rectangle_filled(
-                        min(point[0], self.points[i + 1][0]),
-                        max(point[0], self.points[i + 1][0]),
-                        point[1] + self.height // 2,
-                        point[1] - self.height // 2,
-                        arcade.color.BRONZE)
+        self.castle.draw()
+
+    def cells_to_num(self, num):
+        return self.cell_list[num][0] + self.cell_list[num][1] * 25
 
 
-class PathFactory:  # паттерн фабрика для пути (пока имеется 3 разных пути)
+class ChoosePath:
+    """
+    Класс для создания предустановленных уровней
+    """
+    def choose_path(self, level):
+        if level == 1:
+            return self.make_path1()
+        else:
+            return self.make_path2()
+
     def make_path1(self):
-        return Path(
-            [[-20, 200], [200, 200], [200, 600], [500, 600], [500, 200],
-             [900, 200]])
+        return Path(Globals.path_1_dots)
 
     def make_path2(self):
-        return Path(
-            [[-20, 500], [300, 500], [300, 100], [100, 100], [100, 500],
-             [1024, 500]])
-
-    def make_path3(self):
-        return Path(
-            [[-20, 100], [150, 100], [150, 600], [400, 600], [400, 100],
-             [600, 100], [600, 600],
-             [850, 600], [850, 100], [1050, 100], [1050, 400]])
+        return Path(Globals.path_2_dots)

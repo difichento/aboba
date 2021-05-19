@@ -1,5 +1,4 @@
 import arcade
-import random
 
 
 class Globals(object):
@@ -19,9 +18,8 @@ class Globals(object):
     castle_img = "image/castle.png"
 
     # -------------Спавны-----------------
-    spawner_1_quantity = 10
-    spawner_1_start_time = 1
-    spawner_1_end_time = 20
+    spawner_1_quantity = 5
+    spawner_1_time = 20
 
     # --------------Башни-----------------
     tower_1_x = 500
@@ -38,6 +36,8 @@ class Globals(object):
     enemy_1_height = 70
     enemy_1_health = 1000
     enemy_1_speed = 1
+    enemy_1_coast = 15
+    
     # ---------------Путь-----------------
     path_width = 50
     path_height = 50
@@ -58,8 +58,15 @@ class Globals(object):
 
     # -----------Задний фон---------------
     grass_img = arcade.load_texture("image/grass.png")
+    cell_bg = arcade.load_texture("image/cell_bg.jpg")
+    menu_bg = arcade.load_texture("image/menu.png")
+
     grass_pos_x = 0
     grass_pos_y = 0
 
     default_coins = 20
     coins = default_coins
+
+    current_window = "menu"
+    current_level = None
+

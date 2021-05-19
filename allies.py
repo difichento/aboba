@@ -1,23 +1,48 @@
-import arcade
+from Globals import Globals
 
 
-class Tower:  # класс башен
-    def __init__(self, position_x, position_y, t_width, t_height, t_damage, t_img):
-        self.position_x = position_x
-        self.position_y = position_y
-        self.t_width = t_width
-        self.t_height = t_height
-        self.t_damage = t_damage
-        self.t_img = arcade.load_texture(t_img)
+class Tower:
+    """
+    Класс башен
+    Функция attack находит монстра прошедшего дальше всех и наносит ему урон
+    Функции отрисовки нет, т.к. они отрисовываются в cells
+    """
 
-    def draw(self):  # функция для отрисовки башен
-        arcade.draw_lrwh_rectangle_textured(self.position_x, self.position_y,
-                                            self.t_width, self.t_height, self.t_img)
+    def __init__(self, cell, width, height, damage,
+                 attack_range, attack_delay, img):
+        self.cell = cell
+        self.center_x = cell.center_x
+        self.center_y = cell.center_y
+        self.width = width
+        self.height = height
+        self.damage = damage
+        self.attack_delay = attack_delay
+        self.attack_range = attack_range
+        self.img = img
+        self.frame_after_delay = 0
+
+    def attack(self, enemy_list):
+        if Globals.current_frame >= self.frame_after_delay:
+            for i, enemy in enumerate(enemy_list):
+                if self.center_x - self.attack_range <= enemy.position_x <= self.center_x + self.attack_range and \
+                        self.center_y - self.attack_range <= enemy.position_y <= self.center_y + self.attack_range:
+                    if not enemy.is_dead():
+                        enemy_list[i].take_damage(self.damage)
+                        self.frame_after_delay = Globals.current_frame + self.attack_delay * 60
+                        break
+        return enemy_list
 
 
-class TowerFactory: #паттерн фабрика для башен
-    def __init__(self, path):
-        self.path = path
+class TowerFactory:
+    def __init__(self):
+        # Список всех видов башен. Нужен для создания кнопок.
+        self.tower_list = []
+        self.tower_list.append(self.make_default_tower)
 
-    def make_tower(self, position_x, position_y):
-        return Tower(position_x, position_y, 150, 150, 100, "image/tower.png")
+    def make_default_tower(self, cell):
+        return Tower(cell, 60, 60, 100, 200, 1, Globals.tower_1_img)
+
+
+class WorkingTowers:
+    # глобальный список башен установленных на карте
+    working_tower_list = []
