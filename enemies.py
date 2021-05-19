@@ -1,7 +1,6 @@
 import arcade
 
 from Globals import Globals
-from cell import Cells
 
 
 def sign(num):  # функция возвращения знака
@@ -34,8 +33,8 @@ class Monster:  # класс монстра
         self.health = health
         self.speed = speed
         self.current_path = current_path
-        self.position_x = Cells.cells[current_path.cells_to_num(0)].center_x
-        self.position_y = Cells.cells[current_path.cells_to_num(0)].center_y
+        self.position_x = Globals.cells[current_path.cells_to_num(0)].center_x
+        self.position_y = Globals.cells[current_path.cells_to_num(0)].center_y
         self.change_x = 0
         self.change_y = 0
         self.percent = 0
@@ -99,13 +98,13 @@ class Monster:  # класс монстра
             self.dead = True
         if self.current_point != len(self.current_path.cell_list) - 1:
 
-            self.direction_x = Cells.cells[self.current_path.cells_to_num(
+            self.direction_x = Globals.cells[self.current_path.cells_to_num(
                 self.current_point + 1)].center_x - \
-                Cells.cells[self.current_path.cells_to_num(self.current_point)].center_x
+                Globals.cells[self.current_path.cells_to_num(self.current_point)].center_x
 
-            self.direction_y = Cells.cells[self.current_path.cells_to_num(
+            self.direction_y = Globals.cells[self.current_path.cells_to_num(
                 self.current_point + 1)].center_y - \
-                Cells.cells[self.current_path.cells_to_num(self.current_point)].center_y
+                Globals.cells[self.current_path.cells_to_num(self.current_point)].center_y
 
             self.position_x += sign(self.direction_x) * self.speed
             self.position_y += sign(self.direction_y) * self.speed
@@ -113,16 +112,16 @@ class Monster:  # класс монстра
             percent_y = 0
 
             try:
-                percent_x = 1 - (Cells.cells[self.current_path.cells_to_num(
-                    self.current_point + 1)].center_x - self.position_x) / (Cells.cells[self.current_path.cells_to_num(
-                    self.current_point + 1)].center_x - Cells.cells[self.current_path.cells_to_num(
+                percent_x = 1 - (Globals.cells[self.current_path.cells_to_num(
+                    self.current_point + 1)].center_x - self.position_x) / (Globals.cells[self.current_path.cells_to_num(
+                    self.current_point + 1)].center_x - Globals.cells[self.current_path.cells_to_num(
                     self.current_point)].center_x)
             except ZeroDivisionError:
                 pass
             try:
-                percent_x = 1 - (Cells.cells[self.current_path.cells_to_num(
-                    self.current_point + 1)].center_y - self.position_y) / (Cells.cells[self.current_path.cells_to_num(
-                    self.current_point + 1)].center_y - Cells.cells[self.current_path.cells_to_num(
+                percent_x = 1 - (Globals.cells[self.current_path.cells_to_num(
+                    self.current_point + 1)].center_y - self.position_y) / (Globals.cells[self.current_path.cells_to_num(
+                    self.current_point + 1)].center_y - Globals.cells[self.current_path.cells_to_num(
                     self.current_point)].center_y)
             except ZeroDivisionError:
                 pass
@@ -169,14 +168,14 @@ class Monster:  # класс монстра
         return self.at_the_end
 
     def is_at_point(self):
-        return Cells.cells[self.current_path.cells_to_num(
+        return Globals.cells[self.current_path.cells_to_num(
             self.current_point + 1)].center_x - \
                self.move_range <= self.position_x <= \
-               Cells.cells[self.current_path.cells_to_num(
+               Globals.cells[self.current_path.cells_to_num(
                    self.current_point + 1)].center_x + self.move_range and \
-               Cells.cells[self.current_path.cells_to_num(
+               Globals.cells[self.current_path.cells_to_num(
                    self.current_point + 1)].center_y - self.move_range <= self.position_y <= \
-               Cells.cells[self.current_path.cells_to_num(
+               Globals.cells[self.current_path.cells_to_num(
                    self.current_point + 1)].center_y + self.move_range
 
 

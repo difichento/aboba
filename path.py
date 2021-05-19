@@ -1,5 +1,4 @@
 from castle import Castle
-from cell import Cells
 from Globals import Globals
 
 
@@ -12,15 +11,15 @@ class Path:
         self.cell_list = cells_list
         self.current_point = 0
         for cell_num in range(len(cells_list)):
-            Cells.cells[self.cells_to_num(cell_num)].set_object("path")
+            Globals.cells[self.cells_to_num(cell_num)].set_object("path")
         self.init_castle()
 
     def init_castle(self):
         self.castle = Castle(Globals.castle_width,
                              Globals.castle_height, Globals.castle_health,
                              Globals.castle_img)
-        self.castle.position_x = Cells.cells[self.cells_to_num(-1)].center_x
-        self.castle.position_y = Cells.cells[self.cells_to_num(-1)].center_y
+        self.castle.position_x = Globals.cells[self.cells_to_num(-1)].center_x
+        self.castle.position_y = Globals.cells[self.cells_to_num(-1)].center_y
 
     def draw(self):  # функция отрисовки пути
         self.castle.draw()
