@@ -37,7 +37,6 @@ class Globals(object):
     enemy_1_health = 1000
     enemy_1_speed = 1
     enemy_1_coast = 15
-    
     # ---------------Путь-----------------
     path_width = 50
     path_height = 50
@@ -60,7 +59,6 @@ class Globals(object):
     grass_img = arcade.load_texture("image/grass.png")
     cell_bg = arcade.load_texture("image/cell_bg.jpg")
     menu_bg = arcade.load_texture("image/menu.png")
-
     grass_pos_x = 0
     grass_pos_y = 0
 
@@ -69,4 +67,4 @@ class Globals(object):
 
     current_window = "menu"
     current_level = None
-
+    cells = None

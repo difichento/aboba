@@ -1,8 +1,10 @@
 import arcade
 
 from editor import Editor
-from Globals import Globals
 from menu import Menu, GameEnd
+from level import make_default_level
+from cell import init_cells
+from Globals import Globals
 
 menu = Menu()
 editor = Editor()
@@ -14,6 +16,7 @@ class MyGame(arcade.Window):  # класс окна (класс из arcade)
     Основной класс игры
     все функции стандартные из arcade
     """
+
     def __init__(self):
         super().__init__(Globals.SCREEN_WIDTH, Globals.SCREEN_HEIGHT,
                          Globals.screen_name)
@@ -23,7 +26,8 @@ class MyGame(arcade.Window):  # класс окна (класс из arcade)
         """
         Выполняется 1 раз при запуске окна
         """
-        pass
+        init_cells()
+        make_default_level()
 
     def on_draw(self):
         """

@@ -2,8 +2,7 @@ import arcade
 from Globals import Globals
 
 from button import Button
-from level import Level
-from path import ChoosePath
+from command import commands_runner
 
 
 class Menu:
@@ -12,9 +11,10 @@ class Menu:
     """
 
     def __init__(self):
-        self.start_button = Button(625, 500, 200, 75, arcade.color.BLACK, arcade.color.BLUE, self.start_game, "START")
-        self.editor_button = Button(625, 375, 200, 75, arcade.color.BLACK, arcade.color.BLUE, self.start_editor,
-                                    "EDITOR")
+        self.start_button = Button(625, 500, 200, 75, arcade.color.BLACK, arcade.color.BLUE, commands_runner.start_game_menu,
+                                   "START")
+        self.editor_button = Button(625, 375, 200, 75, arcade.color.BLACK, arcade.color.BLUE,
+                                    commands_runner.start_editor_menu, "EDITOR")
 
     def on_draw(self):
         self.draw_background()
@@ -30,14 +30,6 @@ class Menu:
         arcade.draw_lrwh_rectangle_textured(0, 0, Globals.SCREEN_WIDTH,
                                             Globals.SCREEN_HEIGHT,
                                             Globals.menu_bg)
-
-    def start_game(self):
-        Globals.current_level = Level(ChoosePath().choose_path(2))
-        Globals.current_window = "game"
-
-    @staticmethod
-    def start_editor():
-        Globals.current_window = "editor"
 
     def update(self):
         pass

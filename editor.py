@@ -3,8 +3,7 @@ from Globals import Globals
 from button import Button
 from level import Level
 from path import Path
-from cell import Cells
-
+from command import commands_runner
 
 class Editor:
     """
@@ -19,21 +18,21 @@ class Editor:
         self.x = 0
         self.y = 0
         self.start_button = Button(1150, 38, 200, 75, arcade.color.BLACK, arcade.color.BLUE, self.start_game, "START")
-        self.clear_cells()
+
 
     def on_draw(self):
         self.draw_background()
-        for cell in Cells.cells:
+        for cell in Globals.cells:
             cell.draw_cell()
             cell.draw_borders(arcade.color.BLACK)
         if len(self.points) == 0:
             try:
-                Cells.cells[self.find_cell_num(self.x, self.y)].draw_borders(arcade.color.GREEN)
+                Globals.cells[self.find_cell_num(self.x, self.y)].draw_borders(arcade.color.GREEN)
             except:
                 pass
         else:
             for point in self.available_points:
-                Cells.cells[point].draw_borders(arcade.color.BLUE)
+                Globals.cells[point].draw_borders(arcade.color.BLUE)
 
         self.start_button.draw()
 
@@ -42,7 +41,7 @@ class Editor:
         if len(self.points) != 0:
             for i in [1, -1, 25, -25]:
                 try:
-                    if Cells.cells[self.points[-1] + i].object == "background":
+                    if Globals.cells[self.points[-1] + i].object == "background":
                         self.available_points.append(self.points[-1] + i)
                 except:
                     pass
@@ -51,18 +50,24 @@ class Editor:
         self.start_button.on_mouse_press(x, y, button, modifiers)
         if button == arcade.MOUSE_BUTTON_LEFT:
             if self.find_cell_num(x, y) in self.available_points or len(self.points) == 0:
-                if Cells.cells[self.find_cell_num(x, y)].object == "background":
-                    Cells.cells[self.find_cell_num(x, y)].object = "path"
+                if Globals.cells[self.find_cell_num(x, y)].object == "background":
+                    Globals.cells[self.find_cell_num(x, y)].object = "path"
                     self.points.append(self.find_cell_num(x, y))
+
+                    current_path = Path(list(map(self.points_num2points, self.points)))
+                    Globals.current_level = Level(current_path)
         elif button == arcade.MOUSE_BUTTON_RIGHT:
-            if Cells.cells[self.find_cell_num(x, y)].object == "path":
+            if Globals.cells[self.find_cell_num(x, y)].object == "path":
                 if len(self.points) != 0:
                     if self.find_cell_num(x, y) == self.points[0]:
-                        Cells.cells[self.find_cell_num(x, y)].object = "background"
+                        Globals.cells[self.find_cell_num(x, y)].object = "background"
                         self.points = self.points[1:]
                     if self.find_cell_num(x, y) == self.points[-1]:
-                        Cells.cells[self.find_cell_num(x, y)].object = "background"
+                        Globals.cells[self.find_cell_num(x, y)].object = "background"
                         self.points = self.points[:-1]
+
+                    current_path = Path(list(map(self.points_num2points, self.points)))
+                    Globals.current_level = Level(current_path)
 
     def on_mouse_motion(self, x: float, y: float, dx: float, dy: float):
         self.start_button.on_mouse_motion(x, y, dx, dy)
@@ -75,10 +80,6 @@ class Editor:
                                             Globals.SCREEN_HEIGHT,
                                             Globals.grass_img)
 
-    @staticmethod
-    def clear_cells():
-        for i in range(len(Cells.cells)):
-            Cells.cells[i].object = "background"
 
     @staticmethod
     def find_cell(x, y):
@@ -90,9 +91,7 @@ class Editor:
 
     def start_game(self):
         if len(self.points) >= 2:
-            current_path = Path(list(map(self.points_num2points, self.points)))
-            Globals.current_level = Level(current_path)
-            Globals.current_window = "game"
+            commands_runner.start_game_editor()
 
     @staticmethod
     def points_num2points(num):

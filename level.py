@@ -1,10 +1,10 @@
 import arcade
 
 from allies import WorkingTowers
-from cell import Cells
 from Globals import Globals
 from hud import Hud
 from spawn import InfiniteSpawner
+from path import ChoosePath
 
 
 class Level:
@@ -69,7 +69,7 @@ class Level:
         self.hud.on_mouse_motion(x, y, dx, dy)
 
     def draw_cells(self):
-        for cell in Cells.cells:
+        for cell in Globals.cells:
             cell.draw_cell()
             cell.draw_borders()
 
@@ -77,3 +77,7 @@ class Level:
         arcade.draw_lrwh_rectangle_textured(0, 0, Globals.SCREEN_WIDTH,
                                             Globals.SCREEN_HEIGHT,
                                             Globals.grass_img)
+
+
+def make_default_level():
+    Globals.current_level = Level(ChoosePath().choose_path(2))

@@ -9,6 +9,7 @@ class Cell:
     может быть фоном, кнопкой для установки башен, частью пути и башней
     изначально создается список клеток с object = background
     """
+
     def __init__(self, num):
         self.object = "background"
         self.num = num
@@ -48,5 +49,5 @@ class Cell:
         self.object = obj
 
 
-class Cells:
-    cells = [Cell(i) for i in range(25 * 15)]
+def init_cells():
+    Globals.cells = [Cell(i) for i in range(25 * 15)]
