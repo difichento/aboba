@@ -91,7 +91,7 @@ class Editor:
 
     def start_game(self):
         if len(self.points) >= 2:
-            Commands.s
+            Commands.start_game_editor()
 
     @staticmethod
     def points_num2points(num):
