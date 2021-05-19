@@ -2,7 +2,7 @@ import arcade
 from Globals import Globals
 
 from button import Button
-from command import Commands
+from command import commands_runner
 
 
 class Menu:
@@ -11,10 +11,10 @@ class Menu:
     """
 
     def __init__(self):
-        self.start_button = Button(625, 500, 200, 75, arcade.color.BLACK, arcade.color.BLUE, Commands.start_game_menu,
+        self.start_button = Button(625, 500, 200, 75, arcade.color.BLACK, arcade.color.BLUE, commands_runner.start_game_menu,
                                    "START")
         self.editor_button = Button(625, 375, 200, 75, arcade.color.BLACK, arcade.color.BLUE,
-                                    Commands.start_editor_menu, "EDITOR")
+                                    commands_runner.start_editor_menu, "EDITOR")
 
     def on_draw(self):
         self.draw_background()

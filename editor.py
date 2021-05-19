@@ -3,7 +3,7 @@ from Globals import Globals
 from button import Button
 from level import Level
 from path import Path
-from command import Commands
+from command import commands_runner
 
 class Editor:
     """
@@ -91,7 +91,7 @@ class Editor:
 
     def start_game(self):
         if len(self.points) >= 2:
-            Commands.start_game_editor()
+            commands_runner.start_game_editor()
 
     @staticmethod
     def points_num2points(num):

@@ -51,4 +51,3 @@ class Cell:
 
 def init_cells():
     Globals.cells = [Cell(i) for i in range(25 * 15)]
-    print(Globals.cells)

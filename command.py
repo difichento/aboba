@@ -2,20 +2,17 @@ from Globals import Globals
 
 
 class Command:
+    def __init__(self, destination):
+        self.destination = destination
+
     @staticmethod
     def execute():
         pass
 
 
-def _clear_cells():
-    for i in range(len(Globals.cells)):
-        Globals.cells[i].object = "background"
-
-
 class StartGameMenu(Command):
-    @staticmethod
-    def execute():
-        Globals.current_window = "game"
+    def execute(self):
+        self.destination.current_window = "game"
 
 
 class StartEditorMenu(Command):
@@ -24,32 +21,31 @@ class StartEditorMenu(Command):
         for i in range(len(Globals.cells)):
             Globals.cells[i].object = "background"
 
-    @staticmethod
-    def execute():
-        _clear_cells()
-        Globals.current_level = None
-        Globals.current_window = "editor"
+    def execute(self):
+        StartEditorMenu._clear_cells()
+        self.destination.current_level = None
+        self.destination.current_window = "editor"
 
 
 class StartGameEditor(Command):
-    @staticmethod
-    def execute():
-        Globals.current_window = "game"
+    def execute(self):
+        self.destination.current_window = "game"
 
 
-class Commands:
-    _start_game_menu_com = StartGameMenu()
-    _start_editor_menu_com = StartEditorMenu()
-    _start_game_editor_com = StartGameEditor()
+class CommandsRunner:
+    def __init__(self, start_game_menu_com, start_editor_menu_com, start_game_editor_com):
+        self._start_game_menu_com = start_game_menu_com
+        self._start_editor_menu_com = start_editor_menu_com
+        self._start_game_editor_com = start_game_editor_com
 
-    @staticmethod
-    def start_game_menu():
-        Commands._start_game_menu_com.execute()
+    def start_game_menu(self):
+        self._start_game_menu_com.execute()
 
-    @staticmethod
-    def start_editor_menu():
-        Commands._start_editor_menu_com.execute()
+    def start_editor_menu(self):
+        self._start_editor_menu_com.execute()
 
-    @staticmethod
-    def start_game_editor():
-        Commands._start_game_editor_com.execute()
+    def start_game_editor(self):
+        self._start_game_editor_com.execute()
+
+
+commands_runner = CommandsRunner(StartGameMenu(Globals), StartEditorMenu(Globals), StartGameEditor(Globals))
